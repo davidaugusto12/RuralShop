@@ -1,0 +1,68 @@
+@layouts.app()
+<main class="container mx-auto px-6 py-10" style="background-color: #f5f5dc;">
+  <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8">
+    <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Editar Perfil</h1>
+    <form action="{{ route('users.update') }}" method="POST" class="space-y-6">
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+
+      <!-- Campo Nome -->
+      <div>
+        <label for="full_name" class="block text-lg font-medium text-gray-700">Nome Completo</label>
+        <input 
+          type="text" 
+          name="full_name" 
+          id="full_name" 
+          value="{{ user.fullName }}" 
+          class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 px-4 py-2"
+          required
+        >
+      </div>
+
+      <!-- Campo E-mail -->
+      <div>
+        <label for="email" class="block text-lg font-medium text-gray-700">E-mail</label>
+        <input 
+          type="email" 
+          name="email" 
+          id="email" 
+          value="{{ user.email }}" 
+          class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 px-4 py-2"
+          required
+        >
+      </div>
+
+      <!-- Campo Nova Senha -->
+      <div>
+        <label for="password" class="block text-lg font-medium text-gray-700">Nova Senha</label>
+        <input 
+          type="password" 
+          name="password" 
+          id="password" 
+          class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 px-4 py-2"
+        >
+      </div>
+
+      <!-- Campo Confirmação de Senha -->
+      <div>
+        <label for="password_confirmation" class="block text-lg font-medium text-gray-700">Confirmar Nova Senha</label>
+        <input 
+          type="password" 
+          name="password_confirmation" 
+          id="password_confirmation" 
+          class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 px-4 py-2"
+        >
+      </div>
+
+      <!-- Botão Salvar Alterações -->
+      <div class="text-center">
+        <button 
+          type="submit" 
+          class="px-6 py-3 bg-gradient-to-r from-indigo-500 to-indigo-700 text-white rounded-lg shadow-lg hover:from-indigo-600 hover:to-indigo-800 transition duration-300 transform hover:scale-105"
+        >
+          Salvar Alterações
+        </button>
+      </div>
+    </form>
+  </div>
+</main>
+@end

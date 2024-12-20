@@ -1,0 +1,40 @@
+@layouts.app()
+<main class="container mx-auto p-4">
+  <div id="categories" class="mb-6 flex justify-between items-center">
+    @if(isAdmin)
+      <div>
+        <a 
+          href="/products/new" 
+          class="bg-gradient-to-r from-green-500 to-green-700 text-white px-6 py-3 rounded-lg shadow hover:from-green-600 hover:to-green-800 transition duration-300 transform hover:scale-105"
+        >
+          + Criar Produto
+        </a>
+      </div>
+    @endif
+  </div>
+  
+  @each((products, category) in productsByCategory)
+    <div class="category mb-8">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">{{ category }}</h2>
+      <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @each(product in products)
+          <li 
+            class="border rounded-lg shadow-md p-4 hover:shadow-lg transition duration-300"
+            style="background-color: #e6f7ff;" <!-- Fundo azul claro para destacar -->
+            <img 
+              src="{{ product.imageUrl }}" 
+              alt="{{ product.name }}" 
+              class="h-40 w-full object-contain mb-4 rounded"
+              onerror="this.onerror=null; this.src='/images/default.png';"
+            />
+            <a href="/products/{{ product.id }}" class="text-xl font-semibold text-blue-600 hover:underline">
+              {{ product.name }}
+            </a>
+            <p class="text-gray-600">R$ {{ product.price }}</p>
+          </li>
+        @endeach
+      </ul>
+    </div>
+  @endeach
+</main>
+@end

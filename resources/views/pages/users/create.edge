@@ -1,0 +1,78 @@
+@layouts.app()
+<main class="container mx-auto px-6 py-10" style="background-color: #f5f5dc;">
+  <div class="max-w-md mx-auto bg-white shadow-lg rounded-lg p-8">
+    <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Criar Conta</h1>
+    <form action="{{ route('users.store') }}" method="POST" class="space-y-6">
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+
+      <!-- Campo Nome Completo -->
+      <div>
+        <label for="full_name" class="block text-lg font-medium text-gray-700">Nome Completo</label>
+        <input 
+          type="text" 
+          name="full_name" 
+          id="full_name" 
+          class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 px-4 py-2"
+          required
+        >
+      </div>
+
+      <!-- Campo E-mail -->
+      <div>
+        <label for="email" class="block text-lg font-medium text-gray-700">E-mail</label>
+        <input 
+          type="email" 
+          name="email" 
+          id="email" 
+          class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 px-4 py-2"
+          required
+        >
+      </div>
+
+      <!-- Campo Senha -->
+      <div>
+        <label for="password" class="block text-lg font-medium text-gray-700">Senha</label>
+        <input 
+          type="password" 
+          name="password" 
+          id="password" 
+          class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 px-4 py-2"
+          required
+        >
+      </div>
+
+      <!-- Campo Confirmar Senha -->
+      <div>
+        <label for="password_confirmation" class="block text-lg font-medium text-gray-700">Confirmar Senha</label>
+        <input 
+          type="password" 
+          name="password_confirmation" 
+          id="password_confirmation" 
+          class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 px-4 py-2"
+          required
+        >
+      </div>
+
+      <!-- Botão Criar -->
+      <div class="text-center">
+        <button 
+          type="submit" 
+          class="px-6 py-3 bg-gradient-to-r from-green-500 to-green-700 text-white rounded-lg shadow-lg hover:from-green-600 hover:to-green-800 transition duration-300 transform hover:scale-105"
+        >
+          Criar
+        </button>
+      </div>
+    </form>
+
+    <!-- Link para Login -->
+    <div class="mt-6 text-center">
+      <p class="text-gray-700">
+        Já possui conta? 
+        <a href="{{ route('auth.create') }}" class="text-green-600 font-semibold hover:underline">
+          Login
+        </a>
+      </p>
+    </div>
+  </div>
+</main>
+@end

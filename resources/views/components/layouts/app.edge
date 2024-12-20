@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RuralShop - Protegendo a Natureza</title>
+  @vite(['resources/js/app.js', 'resources/css/app.css'])
+  <style>
+    body {
+      background-color: #f5f5dc; /* Fundo Bege */
+      margin: 0; /* Remove margens padrão */
+      padding: 0; /* Remove padding padrão */
+    }
+
+    header {
+      background-color: #8b4513; /* Fundo Marrom */
+    }
+
+    .mascot-image {
+      max-width: 100px;
+      border-radius: 50%;
+      border: 3px solid #8b4513;
+    }
+
+    main {
+      margin: 0 auto;
+      width: 100%;
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body class="font-sans">
+  <!-- Header -->
+  @include('components/layouts/partials/header')
+
+  <!-- Main Content -->
+  <div>
+    {{{ await $slots.main() }}}
+  </div>
+</body>
+</html>

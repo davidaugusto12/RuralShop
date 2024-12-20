@@ -1,0 +1,61 @@
+<nav class="relative z-50 h-24 select-none bg-[#8b4513] text-white">
+  <div class="flex items-center justify-between h-24 px-6 max-w-full">
+    <!-- Logo Central -->
+    <div class="absolute left-1/2 transform -translate-x-1/2">
+      <a href="{{ route('home.show') }}">
+        <img src="/images/Logo.png" alt="Mascote Capivara" class="h-20 mascot-image">
+      </a>
+    </div>
+
+    <!-- Links à Esquerda -->
+    <div class="flex items-center space-x-6">
+      <a href="{{ route('products.index') }}" 
+         class="px-4 py-2 text-sm font-medium bg-gradient-to-r from-yellow-500 to-yellow-700 rounded-lg hover:from-yellow-600 hover:to-yellow-800 transition duration-300 transform hover:scale-105">
+        Produtos
+      </a>
+    </div>
+
+    <!-- Links à Direita -->
+    <div class="flex items-center space-x-6">
+      @if(auth.isAuthenticated)
+        <!-- Nome do Usuário -->
+        <p class="text-sm">Bem-vindo, {{ auth.user.fullName }}</p>
+
+        <!-- Link para o Perfil -->
+        <a href="{{ route('users.profile') }}" 
+           class="px-4 py-2 text-sm font-medium bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-lg hover:from-blue-600 hover:to-blue-800 transition duration-300 transform hover:scale-105">
+          Minha Conta
+        </a>
+
+        <!-- Botão do Carrinho -->
+        <a href="{{ route('cart.index') }}" 
+          class="relative flex items-center justify-center w-12 h-12 bg-gradient-to-r from-gray-200 to-gray-300 rounded-full shadow-lg hover:from-gray-300 hover:to-gray-400 transition duration-300 transform hover:scale-110">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1 6m10-6l1 6M9 17h6" />
+          </svg>
+        @if(auth.user.cartItemsCount > 0)
+          <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full px-2 py-1 shadow">
+          {{ auth.user.cartItemsCount }}
+          </span>
+          @endif
+          </a>
+
+        <!-- Logout -->
+        <a href="{{ route('auth.destroy') }}" 
+           class="px-4 py-2 text-sm font-medium bg-gradient-to-r from-red-500 to-red-700 text-white rounded-lg hover:from-red-600 hover:to-red-800 transition duration-300 transform hover:scale-105">
+          Logout
+        </a>
+      @else
+        <!-- Botões de Login e Registro -->
+        <a href="{{ route('users.create') }}" 
+           class="px-4 py-2 text-sm font-medium bg-gradient-to-r from-green-600 to-green-800 text-white rounded-lg hover:from-green-700 hover:to-green-900 transition duration-300 transform hover:scale-105">
+          Sign In
+        </a>
+        <a href="{{ route('auth.create') }}" 
+           class="px-4 py-2 text-sm font-medium bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-lg hover:from-blue-600 hover:to-blue-800 transition duration-300 transform hover:scale-105">
+          Login
+        </a>
+      @end
+    </div>
+  </div>
+</nav>

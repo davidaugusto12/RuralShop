@@ -1,0 +1,107 @@
+@layouts.app()
+<main class="container mx-auto px-6 py-10" style="background-color: #f5f5dc;">
+  <h1 class="text-4xl font-bold mb-10 text-gray-800 text-center">Carrinho de Compras</h1>
+
+  @if(cartItems.length > 0)
+    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      @each(item in cartItems)
+        <li class="p-6 bg-white shadow-lg rounded-lg hover:shadow-2xl transition duration-300">
+          <!-- Imagem do Produto -->
+          <img 
+            src="{{ item.product.imageUrl }}" 
+            alt="{{ item.product.name }}" 
+            class="w-full h-48 object-contain mb-4 rounded-lg shadow-md"
+            onerror="this.onerror=null; this.src='/images/default.png';"
+          />
+
+          <!-- Detalhes do Produto -->
+          <h2 class="text-2xl font-semibold mb-2 text-gray-800">{{ item.product.name }}</h2>
+          <p class="text-lg font-medium text-gray-600 mb-2">Preço: R$ {{ item.product.price }}</p>
+
+          <!-- Atualizar Quantidade -->
+          <form action="{{ route('cart.update', { id: item.id }) }}" method="POST" class="flex items-center space-x-4">
+            <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+            <input 
+              type="number" 
+              name="quantity" 
+              id="quantityInput{{ item.id }}" 
+              min="1" 
+              max="{{ item.product.stock }}" 
+              value="{{ item.quantity }}" 
+              class="w-20 border border-gray-300 rounded-lg px-4 py-2 text-center"
+              oninput="validateQuantity({{ item.id }}, {{ item.product.stock }})"
+            >
+            <button 
+              type="submit" 
+              id="updateButton{{ item.id }}" 
+              class="px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-lg shadow-lg hover:from-blue-600 hover:to-blue-800 transition duration-300 transform hover:scale-105"
+            >
+              Atualizar
+            </button>
+          </form>
+
+          <!-- Botão Remover Tudo -->
+          <form action="{{ route('cart.update', { id: item.id }) }}" method="POST" class="mt-4 text-right">
+            <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+            <input type="hidden" name="quantity" value="0">
+            <button 
+              type="submit" 
+              class="px-4 py-2 bg-gradient-to-r from-red-500 to-red-700 text-white rounded-lg shadow-lg hover:from-red-600 hover:to-red-800 transition duration-300 transform hover:scale-105"
+            >
+              Remover Tudo
+            </button>
+          </form>
+        </li>
+      @endeach
+    </ul>
+
+    <!-- Resumo do Carrinho -->
+    <div class="mt-10 bg-white p-6 rounded-lg shadow-lg">
+      <p class="text-2xl font-semibold text-gray-800 mb-4 text-right">
+        Preço Total: <span class="text-green-600">R$ {{ totalPrice.toFixed(2) }}</span>
+      </p>
+      <div class="text-right">
+        <a 
+          href="/checkout" 
+          class="px-6 py-3 bg-gradient-to-r from-green-500 to-green-700 text-white rounded-lg shadow-lg hover:from-green-600 hover:to-green-800 transition duration-300 transform hover:scale-105"
+        >
+          Finalizar Compra
+        </a>
+      </div>
+    </div>
+  @else
+    <div class="text-center py-10 bg-white rounded-lg shadow-lg">
+      <p class="text-2xl font-semibold text-gray-800">Seu carrinho está vazio.</p>
+      <a 
+        href="/products" 
+        class="mt-6 inline-block px-6 py-3 bg-gradient-to-r from-green-500 to-green-700 text-white rounded-lg shadow-lg hover:from-green-600 hover:to-green-800 transition duration-300 transform hover:scale-105"
+      >
+        Veja nossos produtos
+      </a>
+    </div>
+  @endif
+</main>
+
+<script>
+  function validateQuantity(id, maxStock) {
+    const quantityInput = document.getElementById(`quantityInput${id}`);
+    const updateButton = document.getElementById(`updateButton${id}`);
+    const quantity = parseInt(quantityInput.value, 10);
+
+    if (isNaN(quantity) || quantity > maxStock || quantity <= 0) {
+      updateButton.disabled = true;
+      updateButton.classList.add('opacity-50', 'cursor-not-allowed');
+    } else {
+      updateButton.disabled = false;
+      updateButton.classList.remove('opacity-50', 'cursor-not-allowed');
+    }
+  }
+
+  // Inicializa a validação para todos os itens no carrinho
+  document.querySelectorAll('input[type="number"][id^="quantityInput"]').forEach(input => {
+    const id = input.id.replace('quantityInput', '');
+    const maxStock = input.getAttribute('max');
+    validateQuantity(id, maxStock);
+  });
+</script>
+@end
