@@ -23,3 +23,14 @@ yarn-error.log
 
 # Platform specific
 .DS_Store
+
+# Database backups ou dados locais
+/database/database.sqlite
+/database/backups/
+
+# Pastas não utilizadas
+/img/
+
+# Logs ou arquivos temporários
+*.log
+*.tmp
