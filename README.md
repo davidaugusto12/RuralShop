@@ -24,13 +24,16 @@ mkdir tmp```
 ### **2. Criar o .env**
 
 ```bash
-cp .env.example .env```
+cp .env.example .env
+```
 
 ### **3. Instalar as dependências**
 
 ```bash
-npm install```
+npm install
+```
 
 ## **Execução**
 ```bash
-npm run dev```
+npm run dev
+```
