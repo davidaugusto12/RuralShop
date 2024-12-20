@@ -19,18 +19,18 @@ Antes de começar, certifique-se de ter o Node.js e npm instalados em sua máqui
 ### **1. Criar a pasta temporária para o banco SQLite**
 
 ```bash
-mkdir tmp
+mkdir tmp```
 
 ### **2. Criar o .env**
 
 ```bash
-cp .env.example .env
+cp .env.example .env```
 
 ### **3. Instalar as dependências**
 
 ```bash
-npm install
+npm install```
 
 ## **Execução**
 ```bash
-npm run dev
+npm run dev```
